@@ -58,5 +58,24 @@ module.exports = function(ServiceRequest) {
     }
   });
 
+  ServiceRequest.schedule4 = function (serviceRequest, service, cb) {
+    console.log(serviceRequest); //does not work
+    console.log('SERVICE ID', service); //logs the string
+    cb(null, { model: serviceRequest, service: service});
+  };
+
+  ServiceRequest.remoteMethod('schedule4', {
+    description: 'Make a new schedule request',
+    accepts: [
+      {arg: 'serviceRequest', description: 'Service Request model', type: 'ServiceRequest' , http: {source: 'body.serviceRequest'}},
+      {arg: 'service', description: 'Service id', type: 'string'}
+    ],
+    returns: {arg: 'data', root: true},
+    http: {
+      path: '/schedule4',
+      verb: 'post'
+    }
+  });
+
 };
 
